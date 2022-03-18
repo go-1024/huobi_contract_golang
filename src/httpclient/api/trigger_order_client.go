@@ -3,11 +3,11 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/xiaomingping/huobi_contract_golang/src/config"
-	"github.com/xiaomingping/huobi_contract_golang/src/httpclient/request"
-	"github.com/xiaomingping/huobi_contract_golang/src/httpclient/response"
-	"github.com/xiaomingping/huobi_contract_golang/src/logh"
-	"github.com/xiaomingping/huobi_contract_golang/src/utils/reqbuilder"
+	"github.com/gostudys/huobi_contract_golang/src/config"
+	"github.com/gostudys/huobi_contract_golang/src/httpclient/request"
+	"github.com/gostudys/huobi_contract_golang/src/httpclient/response"
+	"github.com/gostudys/huobi_contract_golang/src/logh"
+	"github.com/gostudys/huobi_contract_golang/src/utils/reqbuilder"
 )
 
 type TriggerOrderClient struct {

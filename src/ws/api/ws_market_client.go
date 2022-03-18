@@ -3,9 +3,9 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/xiaomingping/huobi_contract_golang/src/config"
-	"github.com/xiaomingping/huobi_contract_golang/src/ws/request"
-	"github.com/xiaomingping/huobi_contract_golang/src/ws/response"
+	"github.com/gostudys/huobi_contract_golang/src/config"
+	"github.com/gostudys/huobi_contract_golang/src/ws/request"
+	"github.com/gostudys/huobi_contract_golang/src/ws/response"
 	"reflect"
 )
 

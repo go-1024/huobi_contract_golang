@@ -3,9 +3,9 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/xiaomingping/huobi_contract_golang/src/config"
-	"github.com/xiaomingping/huobi_contract_golang/src/ws/request"
-	"github.com/xiaomingping/huobi_contract_golang/src/ws/response"
+	"github.com/gostudys/huobi_contract_golang/src/config"
+	"github.com/gostudys/huobi_contract_golang/src/ws/request"
+	"github.com/gostudys/huobi_contract_golang/src/ws/response"
 	"reflect"
 )
 
@@ -19,6 +19,35 @@ func (wsIx *WSIndexClient) Init(host string, callback closeChanCallback) *WSInde
 	}
 	wsIx.open("/ws_index", host, "", "", callback)
 	return wsIx
+}
+
+/**
+【通用】订阅溢价指数K线数据
+*/
+type OnSubIndexKLineResponse func(*response.SubIndexKLineResponse)
+type OnReqIndexKLineResponse func(*response.ReqIndexKLineResponse)
+
+func (wsIx *WSIndexClient) SubIndexKLine(contractCode string, period string, callbackFun OnSubIndexKLineResponse, id string) {
+	if id == "" {
+		id = config.DEFAULT_ID
+	}
+	ch := fmt.Sprintf("market.%s.index.%s", contractCode, period)
+	subData := request.WSSubData{Sub: ch, Id: id}
+	data, _ := json.Marshal(subData)
+	wsIx.sub(data, ch, callbackFun, reflect.TypeOf(response.SubIndexKLineResponse{}))
+}
+
+/**
+【通用】请求溢价指数K线数据
+*/
+func (wsIx *WSIndexClient) ReqIndexKLine(contractCode string, period string, callbackFun OnReqIndexKLineResponse, from int64, to int64, id string) {
+	if id == "" {
+		id = config.DEFAULT_ID
+	}
+	ch := fmt.Sprintf("market.%s.index.%s", contractCode, period)
+	reqData := request.WSReqData{Req: ch, Id: id, From: from, To: to}
+	data, _ := json.Marshal(reqData)
+	wsIx.req(data, ch, callbackFun, reflect.TypeOf(response.ReqIndexKLineResponse{}))
 }
 
 /**

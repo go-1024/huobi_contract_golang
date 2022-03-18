@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/xiaomingping/huobi_contract_golang/src/ws/api"
-	"github.com/xiaomingping/huobi_contract_golang/src/ws/response"
+	"github.com/gostudys/huobi_contract_golang/src/ws/api"
+	"github.com/gostudys/huobi_contract_golang/src/ws/response"
 	"time"
 )
 

@@ -1,4 +1,4 @@
-module github.com/xiaomingping/huobi_contract_golang
+module github.com/gostudys/huobi_contract_golang
 
 go 1.15
 

@@ -10,7 +10,7 @@ type SubIndexKLineResponse struct {
 
 		Vol string `json:"vol"`
 
-		Count string `json:"count"`
+		Count float64 `json:"count"`
 
 		Open string `json:"open"`
 
