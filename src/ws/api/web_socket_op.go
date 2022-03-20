@@ -151,7 +151,7 @@ func (ws *WebSocketOp) readLoop() {
 		}
 	}
 ERR:
-	logh.Debug("read 已关闭 %s",ws.accessKey)
+	logh.Debug("read 已关闭 %s", ws.accessKey)
 	ws.Close()
 	close(ws.readChan)
 }
@@ -174,7 +174,7 @@ func (ws *WebSocketOp) writeLoop() {
 
 	}
 ERR:
-	logh.Debug("write 已关闭 %s",ws.accessKey)
+	logh.Debug("write 已关闭 %s", ws.accessKey)
 	ws.Close()
 	close(ws.writeChan)
 }
@@ -241,6 +241,10 @@ func (ws *WebSocketOp) unsub(unsubReq []byte, ch string) bool {
 }
 
 func (ws *WebSocketOp) SendMsg(data []byte) bool {
+	if ws.isClose {
+		logh.Debug("send on closed channel 测试")
+		return false
+	}
 	ws.writeChan <- data
 	return true
 }
@@ -258,7 +262,7 @@ func (ws *WebSocketOp) DoHand() {
 		}
 	}
 ERR:
-	logh.Debug("do 已关闭 key:%s",ws.accessKey)
+	logh.Debug("do 已关闭 key:%s", ws.accessKey)
 	ws.Close()
 }
 
