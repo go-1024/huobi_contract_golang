@@ -68,9 +68,13 @@ func (ws *WebSocketOp) open(path, host, accessKey, secretKey string, closeChanCa
 	return ret
 }
 func (ws *WebSocketOp) Close() {
-	ws.conn.Close()
 	ws.mutex.Lock()
 	defer ws.mutex.Unlock()
+	err := ws.conn.Close()
+	if err != nil {
+		fmt.Println("关闭失败" + err.Error())
+		return
+	}
 	if !ws.isClose {
 		ws.isClose = true
 		ws.authOk = false
