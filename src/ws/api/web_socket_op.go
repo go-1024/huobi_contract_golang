@@ -72,8 +72,9 @@ func (ws *WebSocketOp) Close() {
 	defer ws.mutex.Unlock()
 	err := ws.conn.Close()
 	if err != nil {
-		fmt.Println("关闭失败" + err.Error())
-		return
+		fmt.Println("关闭火币长连接失败" + err.Error())
+		// 收到关闭信号，同时关闭火币长连接失败，不进行打断，只做记录，关闭我们下游的socket，给出关闭信号
+		//return
 	}
 	if !ws.isClose {
 		ws.isClose = true
