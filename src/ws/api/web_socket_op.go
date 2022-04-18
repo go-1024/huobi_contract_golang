@@ -117,6 +117,7 @@ func (ws *WebSocketOp) connServer() bool {
 	ws.conn, _, err = websocket.DefaultDialer.Dial(url, nil)
 	if err != nil {
 		logh.Error("WebSocket connected error: %s", err)
+		ws.closeChanCallback <- struct{}{}
 		return false
 	}
 	logh.Info("WebSocket connected")
@@ -187,6 +188,9 @@ ERR:
 // 通用订阅
 func (ws *WebSocketOp) sub(subReq []byte, ch string, fun interface{}, param reflect.Type) bool {
 	for !ws.authOk {
+		if ws.accessKey == "" && ws.secretKey == "" {
+			ws.authOk = true
+		}
 		time.Sleep(10)
 	}
 	ch = strings.ToLower(ch)
